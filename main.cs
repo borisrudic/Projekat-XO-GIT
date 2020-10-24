@@ -6,6 +6,9 @@ class MainClass {
   //0 nema nista
   //1 X
   //2 O
+  static bool izlaz = false; //napustanje programa
+  static int kurX = 7;
+  static int kurY = 6;
   public static void CrtanjeTable (){
     //Iskoristiti kod iz prez. "Tipovi podataka" za crtanje table
     //Za promenu boje: komanda
@@ -22,7 +25,8 @@ class MainClass {
     char levi = '\u251C', desni = '\u2524';
     char gornji = '\u252C', donji = '\u2534';
     char centralni = '\u253C';
-    char disk = '\u25CF';
+    char X = 'X';
+    char O = 'O';
     Console.BackgroundColor = ConsoleColor.Green;
     Console.ForegroundColor = ConsoleColor.Black;
     for (int red = 0; red < visina; red++)
@@ -64,7 +68,41 @@ class MainClass {
     Console.ResetColor();  
 
   }
+  public static void PomeriDesno(){
+    if(kurX<13)kurX+=4;
+  }
+  public static void PomeriDole(){
+    if(kurY<10)kurY+=2;
+  }
+  public static void PomeriLevo(){
+    if(kurX>7)kurX-=4;
+  }
+  public static void PomeriGore(){
+    if(kurY>6)kurY-=2;
+  }
+  
+  public static void OdaberiPolje(){
+    ConsoleKeyInfo cki;
+    cki = Console.ReadKey(true);
+    do{
+      Console.SetCursorPosition(kurX, kurY);
+      cki = Console.ReadKey();
+      if(cki.Key == ConsoleKey. UpArrow) PomeriGore();
+      else if(cki.Key == ConsoleKey. DownArrow) PomeriDole();
+      else if(cki.Key == ConsoleKey. RightArrow) PomeriDesno();
+      else if(cki.Key == ConsoleKey. LeftArrow) PomeriLevo();
+      else if(cki.Key == ConsoleKey. Escape) izlaz = true; 
+      
+    }while(cki.Key != ConsoleKey.Enter && cki.Key != ConsoleKey.Escape);
+  }
   public static void Main () {
-    CrtanjeTable();
+    do{
+      CrtanjeTable();
+      
+      OdaberiPolje();
+
+      
+    }while(!izlaz);
+    Console.SetCursorPosition(0,12);
   }
 }
