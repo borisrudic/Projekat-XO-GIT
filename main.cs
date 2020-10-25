@@ -16,7 +16,7 @@ class MainClass {
     //Console.BackgroundColor = Console.Color.DarkGreen;
     //Vracanje: ResetColor
     //jos jedna: SetCursorPosition za postavljanje kursora od koga se pocinje
-    int PocRed = 5;
+    int PocRed = 9;
     int PocKol = 5;
     int visina = 2 * Tabla.GetLength(0) + 1;
     int sirina = 2 * Tabla.GetLength(1) + 1;
@@ -97,6 +97,16 @@ class MainClass {
     }while(cki.Key != ConsoleKey.Enter && cki.Key != ConsoleKey.Escape);
   }
   public static void Main () {
+		for(int i = 1; i<= 20; i++) Console.Write("-");
+		Console.WriteLine();
+		for(int i = 1; i<=4; i++) Console.Write(" ");
+		Console.Write("IGRA IKS OKS");
+		for(int i = 1; i<=4; i++) Console.Write(" ");
+		Console.WriteLine();
+		for(int i = 1; i<= 20; i++) Console.Write("-");
+		Console.WriteLine();
+		Console.WriteLine("Igrate li sami ili sa 2 igraca? (1/2)");
+		while(!int.TryParse(Console.ReadLine(), out int BrIgraca) || BrIgraca != 1 || BrIgraca != 2) Console.WriteLine("Igrate li sami ili sa 2 igraca? (1/2)");
     do{
       CrtanjeTable();
       
