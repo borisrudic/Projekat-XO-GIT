@@ -96,6 +96,21 @@ class MainClass {
       
     }while(cki.Key != ConsoleKey.Enter && cki.Key != ConsoleKey.Escape);
   }
+	public static bool Pobeda (int [,] Tabla){
+		//provera uspravno
+		if (Tabla[0,0] != 0 && Tabla[1,0] == Tabla[0,0] && Tabla[2,0] == Tabla[0,0]) return true;
+		if (Tabla[0,1] != 0 && Tabla[1,1] == Tabla[0,1] && Tabla[2,1] == Tabla[0,1]) return true;
+		if (Tabla[0,2] != 0 && Tabla[1,2] == Tabla[0,2] && Tabla[2,2] == Tabla[0,2]) return true;
+		//provera vodoravno
+		if (Tabla[0,0] != 0 && Tabla[0,1] == Tabla[0,0] && Tabla[0,2] == Tabla[0,0]) return true;
+		if (Tabla[1,0] != 0 && Tabla[1,1] == Tabla[1,0] && Tabla[1,2] == Tabla[1,0]) return true;
+		if (Tabla[2,0] != 0 && Tabla[2,1] == Tabla[2,0] && Tabla[2,2] == Tabla[2,0]) return true;
+		//provera dijagonala
+		if (Tabla[0,0] != 0 && Tabla[1,1] == Tabla[0,0] && Tabla[2,2] == Tabla[0,0]) return true;
+		if (Tabla[2,0] != 0 && Tabla[1,1] == Tabla[2,0] && Tabla[0,2] == Tabla[2,0]) return true;
+		//ako nema pogotka
+		return false;
+	}
   public static void Main () {
 		for(int i = 1; i<= 20; i++) Console.Write("-");
 		Console.WriteLine();
@@ -105,9 +120,9 @@ class MainClass {
 		Console.WriteLine();
 		for(int i = 1; i<= 20; i++) Console.Write("-");
 		Console.WriteLine();
-		Console.WriteLine("Igrate li sami ili sa 2 igraca? (1/2)");
+		Console.WriteLine("Igrate li sami ili u 2 igraca? (1/2)");
 		int BrIgraca;
-		while (!(int.TryParse(Console.ReadLine(), out BrIgraca)) || BrIgraca < 1 || BrIgraca>2) Console.WriteLine("Igrate li sami ili sa 2 igraca? (1/2)");
+		while (!(int.TryParse(Console.ReadLine(), out BrIgraca)) || BrIgraca < 1 || BrIgraca>2) Console.WriteLine("Igrate li sami ili u 2 igraca? (1/2)");
 		bool Igrac = true;
 		//ako Igrac = true igra igrac 1, ako false igra 2
     do{
@@ -115,8 +130,8 @@ class MainClass {
       
       OdaberiPolje();
 
-      
-    }while(!izlaz);
+      Igrac = !Igrac;
+    }while(!Pobeda(Tabla) || !izlaz);
     Console.SetCursorPosition(0,12);
   }
 }
