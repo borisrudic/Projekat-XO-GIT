@@ -1,7 +1,8 @@
 using System;
 
 class MainClass {
-  static int[,] Tabla = new int [3, 3];
+  static int[,] Tabla = {{0,0,0},{0,0,0},{0,0,0}};
+
   //Polja table predstavljaju:
   //0 nema nista
   //1 X
