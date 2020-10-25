@@ -7,7 +7,16 @@ class MainClass {
   //0 nema nista
   //1 X
   //2 O
-  static bool izlaz = false; //napustanje programa
+  static bool izlaz (int [,] Tabla){
+		for(int i= 0; i<3; i++){
+			for(int j = 0; j<3; j++){
+				if(Tabla[i,j] == 0) return true;
+			}
+		}
+		return false;
+		//Znaci, ako ima bar 1 prazno polje, igra i dalje moze da se igra
+	}
+	= false; //napustanje programa
   static int kurX = 7;
   static int kurY = 6;
   public static void CrtanjeTable (){
@@ -131,7 +140,7 @@ class MainClass {
       OdaberiPolje();
 
       Igrac = !Igrac;
-    }while(!Pobeda(Tabla) || !izlaz);
+    }while(!Pobeda(Tabla) || !izlaz(Tabla));
     Console.SetCursorPosition(0,12);
   }
 }
