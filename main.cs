@@ -136,10 +136,11 @@ class MainClass {
 		//ako Igrac = true igra igrac 1, ako false igra 2
     do{
       CrtanjeTable();
-      
-      OdaberiPolje();
 
-      Igrac = !Igrac;
+      OdaberiPolje();
+			if(BrIgraca == 1) KompPotez(Tabla);
+			//CPU potez
+      if(BrIgraca == 2) Igrac = !Igrac;
     }while(!Pobeda(Tabla) || !izlaz(Tabla));
     Console.SetCursorPosition(0,12);
   }
