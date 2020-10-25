@@ -106,7 +106,8 @@ class MainClass {
 		for(int i = 1; i<= 20; i++) Console.Write("-");
 		Console.WriteLine();
 		Console.WriteLine("Igrate li sami ili sa 2 igraca? (1/2)");
-		while(!int.TryParse(Console.ReadLine(), out int BrIgraca) || BrIgraca != 1 || BrIgraca != 2) Console.WriteLine("Igrate li sami ili sa 2 igraca? (1/2)");
+		int BrIgraca;
+		while (!(int.TryParse(Console.ReadLine(), out BrIgraca)) || BrIgraca < 1 || BrIgraca>2) Console.WriteLine("Igrate li sami ili sa 2 igraca? (1/2)");
 		bool Igrac = true;
 		//ako Igrac = true igra igrac 1, ako false igra 2
     do{
