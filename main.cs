@@ -16,7 +16,6 @@ class MainClass {
 		return false;
 		//Znaci, ako ima bar 1 prazno polje, igra i dalje moze da se igra
 	}
-	= false; //napustanje programa
   static int kurX = 7;
   static int kurY = 6;
   public static void CrtanjeTable (){
@@ -107,18 +106,21 @@ class MainClass {
   }
 	public static bool Pobeda (int [,] Tabla){
 		//provera uspravno
-		if (Tabla[0,0] != 0 && Tabla[1,0] == Tabla[0,0] && Tabla[2,0] == Tabla[0,0]) return true;
-		if (Tabla[0,1] != 0 && Tabla[1,1] == Tabla[0,1] && Tabla[2,1] == Tabla[0,1]) return true;
-		if (Tabla[0,2] != 0 && Tabla[1,2] == Tabla[0,2] && Tabla[2,2] == Tabla[0,2]) return true;
+		for(int i = 0; i<3; i++) {
+			if (Tabla[0,i] != 0 && Tabla[1,i] == Tabla[0,i] && Tabla[2,i] == Tabla[0,i]) return true;
+		}
 		//provera vodoravno
-		if (Tabla[0,0] != 0 && Tabla[0,1] == Tabla[0,0] && Tabla[0,2] == Tabla[0,0]) return true;
-		if (Tabla[1,0] != 0 && Tabla[1,1] == Tabla[1,0] && Tabla[1,2] == Tabla[1,0]) return true;
-		if (Tabla[2,0] != 0 && Tabla[2,1] == Tabla[2,0] && Tabla[2,2] == Tabla[2,0]) return true;
+		for(int i = 0; i<3; i++) {
+			if (Tabla[i,0] != 0 && Tabla[i,1] == Tabla[i,0] && Tabla[i,2] == Tabla[i,0]) return true;
+		}
 		//provera dijagonala
 		if (Tabla[0,0] != 0 && Tabla[1,1] == Tabla[0,0] && Tabla[2,2] == Tabla[0,0]) return true;
 		if (Tabla[2,0] != 0 && Tabla[1,1] == Tabla[2,0] && Tabla[0,2] == Tabla[2,0]) return true;
 		//ako nema pogotka
 		return false;
+	}
+	public static int[,] KompPotez(int[,] Tabla){
+
 	}
   public static void Main () {
 		for(int i = 1; i<= 20; i++) Console.Write("-");
