@@ -1,15 +1,15 @@
 using System;
 
 class MainClass {
-  static int[,] Tabla = {{0,0,0},{0,0,0},{0,0,0}};
-
+  static int[,] Tabla = {{0, 0, 0}, {0, 0, 0},{0, 0, 0}};
   //Polja table predstavljaju:
   //0 nema nista
   //1 X
   //2 O
-  static bool izlaz (int [,] Tabla){
-		for(int i= 0; i<3; i++){
-			for(int j = 0; j<3; j++){
+  static bool izlaz = false; // napuštanje programa
+  static bool popunjenaTabla (int [,] Tabla){
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
 				if(Tabla[i,j] == 0) return true;
 			}
 		}
@@ -17,7 +17,7 @@ class MainClass {
 		//Znaci, ako ima bar 1 prazno polje, igra i dalje moze da se igra
 	}
   static int kurX = 7;
-  static int kurY = 6;
+  static int kurY = 10;
   public static void CrtanjeTable (){
     //Iskoristiti kod iz prez. "Tipovi podataka" za crtanje table
     //Za promenu boje: komanda
@@ -34,10 +34,10 @@ class MainClass {
     char levi = '\u251C', desni = '\u2524';
     char gornji = '\u252C', donji = '\u2534';
     char centralni = '\u253C';
-    char X = 'X';
-    char O = 'O';
-    Console.BackgroundColor = ConsoleColor.Green;
-    Console.ForegroundColor = ConsoleColor.Black;
+    //char X = 'X';
+    //char O = 'O';
+    Console.BackgroundColor = ConsoleColor.DarkBlue;
+    Console.ForegroundColor = ConsoleColor.Blue;
     for (int red = 0; red < visina; red++)
     {
       Console.SetCursorPosition(PocKol, PocRed + red);
@@ -75,25 +75,26 @@ class MainClass {
         Console.WriteLine();
     }
     Console.ResetColor();  
-
+    Console.SetCursorPosition(kurX, kurY);
   }
   public static void PomeriDesno(){
-    if(kurX<13)kurX+=4;
+    if(kurX < 13) kurX+=4;
   }
   public static void PomeriDole(){
-    if(kurY<10)kurY+=2;
+    if(kurY < 14 )kurY+=2;
   }
   public static void PomeriLevo(){
-    if(kurX>7)kurX-=4;
+    if(kurX > 7) kurX-=4;
   }
   public static void PomeriGore(){
-    if(kurY>6)kurY-=2;
+    if (kurY > 10) kurY-=2;
   }
   
   public static void OdaberiPolje(){
     ConsoleKeyInfo cki;
     cki = Console.ReadKey(true);
-    do{
+    do
+    {
       Console.SetCursorPosition(kurX, kurY);
       cki = Console.ReadKey();
       if(cki.Key == ConsoleKey. UpArrow) PomeriGore();
@@ -101,8 +102,7 @@ class MainClass {
       else if(cki.Key == ConsoleKey. RightArrow) PomeriDesno();
       else if(cki.Key == ConsoleKey. LeftArrow) PomeriLevo();
       else if(cki.Key == ConsoleKey. Escape) izlaz = true; 
-      
-    }while(cki.Key != ConsoleKey.Enter && cki.Key != ConsoleKey.Escape);
+    } while(cki.Key != ConsoleKey.Enter && cki.Key != ConsoleKey.Escape);
   }
 	public static bool Pobeda (int [,] Tabla){
 		//provera uspravno
@@ -119,10 +119,11 @@ class MainClass {
 		//ako nema pogotka
 		return false;
 	}
-	public static int[,] KompPotez(int[,] Tabla){
 
-	}
+	//public static int[,] KompPotez(int[,] Tabla){}
+
   public static void Main () {
+    Console.Clear();
 		for(int i = 1; i<= 20; i++) Console.Write("-");
 		Console.WriteLine();
 		for(int i = 1; i<=4; i++) Console.Write(" ");
@@ -133,17 +134,17 @@ class MainClass {
 		Console.WriteLine();
 		Console.WriteLine("Igrate li sami ili u 2 igraca? (1/2)");
 		int BrIgraca;
-		while (!(int.TryParse(Console.ReadLine(), out BrIgraca)) || BrIgraca < 1 || BrIgraca>2) Console.WriteLine("Igrate li sami ili u 2 igraca? (1/2)");
+		while (!(int.TryParse(Console.ReadLine(), out BrIgraca)) || BrIgraca < 1 || BrIgraca>2) Console.WriteLine("Unesite broj igraca ponovo. (1/2)");
 		bool Igrac = true;
 		//ako Igrac = true igra igrac 1, ako false igra 2
     do{
       CrtanjeTable();
 
       OdaberiPolje();
-			if(BrIgraca == 1) KompPotez(Tabla);
+			//if(BrIgraca == 1) KompPotez(Tabla);
 			//CPU potez
       if(BrIgraca == 2) Igrac = !Igrac;
-    }while(!Pobeda(Tabla) || !izlaz(Tabla));
+    }while(!Pobeda(Tabla) || !popunjenaTabla(Tabla) || !izlaz);
     Console.SetCursorPosition(0,12);
   }
 }
