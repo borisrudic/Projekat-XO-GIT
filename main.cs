@@ -104,6 +104,10 @@ class MainClass {
       else if(cki.Key == ConsoleKey. Escape) izlaz = true; 
     } while(cki.Key != ConsoleKey.Enter && cki.Key != ConsoleKey.Escape);
   }
+
+  //static void unosPoteza (bool Igrac, int[,] Tabla)
+  
+
 	public static bool Pobeda (int [,] Tabla){
 		//provera uspravno
 		for(int i = 0; i<3; i++) {
@@ -137,14 +141,22 @@ class MainClass {
 		while (!(int.TryParse(Console.ReadLine(), out BrIgraca)) || BrIgraca < 1 || BrIgraca>2) Console.WriteLine("Unesite broj igraca ponovo. (1/2)");
 		bool Igrac = true;
 		//ako Igrac = true igra igrac 1, ako false igra 2
-    do{
+    do {
       CrtanjeTable();
-
-      OdaberiPolje();
-			//if(BrIgraca == 1) KompPotez(Tabla);
-			//CPU potez
-      if(BrIgraca == 2) Igrac = !Igrac;
-    }while(!Pobeda(Tabla) || !popunjenaTabla(Tabla) || !izlaz);
+			if(Igrac) {
+				OdaberiPolje();
+				unosPoteza(Igrac, Tabla);
+			}
+			else{
+				//if(BrIgraca == 1) KompPotez(Tabla);
+				//ovo je CPU potez
+				else {
+					OdaberiPolje();
+					unosPoteza(Igrac, Tabla);
+				}
+			}
+			Igrac = !Igrac;
+    } while(!Pobeda(Tabla) || !popunjenaTabla(Tabla) || !izlaz);
     Console.SetCursorPosition(0,12);
   }
 }
