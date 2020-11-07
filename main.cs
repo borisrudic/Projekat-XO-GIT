@@ -2,6 +2,8 @@ using System;
 
 class MainClass {
   static int[,] Tabla = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+	static int[,] stara;
+	static int[,] nova;
   /*
   Polja table predstavljaju:
   - 0 = nema nista
@@ -87,6 +89,7 @@ class MainClass {
 
   static void unosPoteza (bool Igrac, int[,] Tabla){
 		if(Tabla[tablaX, tablaY] == 0){
+			stara = Tabla;
 			if (Igrac){
 				Tabla[tablaX, tablaY] = 1; //X
 				Console.SetCursorPosition(kurX, kurY);
@@ -99,6 +102,7 @@ class MainClass {
 				Console.Write("O");
 				Console.SetCursorPosition(kurX, kurY);
 			}
+			nova = Tabla;
 		}
 		
 	}
@@ -119,6 +123,15 @@ class MainClass {
 		//ako nema pogotka
 		return false;
 	}
+
+	public static bool ImaLiPromene(int[,] stara, int[,] nova){
+		for(int i = 0; i<3; i++){
+			for(int j = 0; j<3; j++){
+				if(stara[i,j] != nova[i,j]) return true;
+			}
+		}
+		return false;
+	} //ako ima promene, vrati true, ako je sve isto, vrati false
 
 	/*
   public static int[,] KompPotez(int[,] Tabla)
@@ -162,7 +175,7 @@ class MainClass {
 					unosPoteza(Igrac, Tabla);
 				//}
 			}
-			Igrac = !Igrac;
+			if(ImaLiPromene(stara, nova)) Igrac = !Igrac;
     } while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz);//ako je true, nema vise upisa i program ide dalje
 		Console.SetCursorPosition(0, 13);
 
