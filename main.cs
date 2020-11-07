@@ -2,8 +2,7 @@ using System;
 
 class MainClass {
   static int[,] Tabla = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
-	static int[,] stara;
-	static int[,] nova;
+	static bool Igrac = true; //ako je igrac 1 na potezu, true
   /*
   Polja table predstavljaju:
   - 0 = nema nista
@@ -87,7 +86,34 @@ class MainClass {
     } while(cki.Key != ConsoleKey.Enter && cki.Key != ConsoleKey.Escape);
   }
 
-  static void unosPoteza (bool Igrac, int[,] Tabla){
+  static void unosPoteza (ref bool Igrac, int[,] Tabla){
+		if(Tabla[tablaX, tablaY] == 0){
+			Console.SetCursorPosition(2, 4);
+			if (Igrac){
+				Tabla[tablaX, tablaY] = 1; //X
+				Console.SetCursorPosition(kurX, kurY);
+				Console.Write("X");
+				Console.SetCursorPosition(kurX, kurY);
+			} 
+			else {
+				Tabla[tablaX, tablaY] = 2; //O
+				Console.SetCursorPosition(kurX, kurY);
+				Console.Write("O");
+				Console.SetCursorPosition(kurX, kurY);
+			}
+			Console.SetCursorPosition(0, 13);
+			Console.WriteLine("                 ");
+			Console.SetCursorPosition(2,4);
+			Igrac = !Igrac;
+		}
+		else{
+			Console.SetCursorPosition(0, 13);
+			Console.WriteLine("Nepravilan potez.");
+			Console.SetCursorPosition(2,4);
+		}
+
+		/*
+		if(Tabla[tablaX, tablaY] == 0){
 			stara = Tabla;
 			if (Igrac){
 				Tabla[tablaX, tablaY] = 1; //X
@@ -102,6 +128,8 @@ class MainClass {
 				Console.SetCursorPosition(kurX, kurY);
 			}
 			nova = Tabla;
+		}
+		*/
 		
 	}
   
@@ -121,15 +149,6 @@ class MainClass {
 		//ako nema pogotka
 		return false;
 	}
-
-	public static bool ImaLiPromene(int[,] stara, int[,] nova){
-		for(int i = 0; i<3; i++){
-			for(int j = 0; j<3; j++){
-				if(stara[i,j] != nova[i,j]) return true;
-			}
-		}
-		return false;
-	} //ako ima promene, vrati true, ako je sve isto, vrati false
 
 	/*
   public static int[,] KompPotez(int[,] Tabla)
@@ -154,7 +173,6 @@ class MainClass {
 		Console.WriteLine("Igrate li sami ili u 2 igraca? (1/2)");
 		int BrIgraca;
 		while (!(int.TryParse(Console.ReadLine(), out BrIgraca)) || BrIgraca < 1 || BrIgraca > 2) Console.WriteLine("Pogresan unos, unesite broj igraca ponovo. (1/2)");
-		bool Igrac = true; //ako Igrac = true igra igrac 1, ako je false igra igrac 2 ili kompjuter
 		
     //Glavni deo koda
 		CrtanjeTable();
@@ -162,7 +180,7 @@ class MainClass {
 			if (Igrac)
       {
 				OdaberiPolje();
-				unosPoteza(Igrac, Tabla);
+				unosPoteza(ref Igrac, Tabla);
 			}
 			else
       {
@@ -170,10 +188,9 @@ class MainClass {
 				//ovo je CPU potez
 				//else {
 					OdaberiPolje();
-					unosPoteza(Igrac, Tabla);
+					unosPoteza(ref Igrac, Tabla);
 				//}
 			}
-			if(!ImaLiPromene(stara, nova)) Igrac = !Igrac;
     } while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz);//ako je true, nema vise upisa i program ide dalje
 		Console.SetCursorPosition(0, 13);
 
