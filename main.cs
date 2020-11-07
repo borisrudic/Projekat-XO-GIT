@@ -153,13 +153,12 @@ class MainClass {
 	/*
   public static int[,] KompPotez(int[,] Tabla)
   {
-
+		Igrac = !Igrac;
   }
   */
 
   public static void Main () {
     //Crtanje pocetne poruke
-    //Console.Clear();
 		for(int i = 1; i<= 20; i++) Console.Write("-");
 		Console.WriteLine();
 		for(int i = 1; i<=4; i++) Console.Write(" ");
@@ -170,9 +169,11 @@ class MainClass {
 		Console.WriteLine();
 
     //Unos broja igraca
-		Console.WriteLine("Igrate li sami ili u 2 igraca? (1/2)");
 		int BrIgraca;
-		while (!(int.TryParse(Console.ReadLine(), out BrIgraca)) || BrIgraca < 1 || BrIgraca > 2) Console.WriteLine("Pogresan unos, unesite broj igraca ponovo. (1/2)");
+		string ponovnaIgra;
+Pocetak:
+		Console.WriteLine("Igrate li sami ili u 2 igrača? (1/2)");
+		while (!(int.TryParse(Console.ReadLine(), out BrIgraca)) || BrIgraca < 1 || BrIgraca > 2) Console.WriteLine("Pogrešan unos, unesite broj igrača ponovo. (1/2)");
 		
     //Glavni deo koda
 		CrtanjeTable();
@@ -193,6 +194,22 @@ class MainClass {
 			}
     } while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz);//ako je true, nema vise upisa i program ide dalje
 		Console.SetCursorPosition(0, 13);
-
+		//Ispis pobednika:
+		if(!Igrac && Pobeda(Tabla)) Console.WriteLine("Partija se završila pobedom prvog igrača.");
+		else if (Igrac && Pobeda(Tabla) && (BrIgraca == 2)) Console.WriteLine("Partija se završila pobedom drugog igrača.");
+		else if (Igrac && Pobeda(Tabla) && (BrIgraca == 1)) Console.WriteLine("Partija se završila pobedom računara.");
+		else Console.WriteLine("Partija se završila nerešenim rezultatom.");
+		Console.WriteLine("Želite li ponovnu igru? (D/N)");
+		ponovnaIgra = Console.ReadLine();
+		ponovnaIgra = ponovnaIgra.ToUpper();
+		if(ponovnaIgra.CompareTo("D") == 0) {
+			Igrac = !Igrac; //da uvek igrac 1 pocinje
+			for(int i = 0; i<3; i++){
+				for(int j = 0; j<3; j++){
+					Tabla[i,j] = 0;
+				}
+			}
+			goto Pocetak;
+		}
 	}
 }
