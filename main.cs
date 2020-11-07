@@ -88,7 +88,6 @@ class MainClass {
   }
 
   static void unosPoteza (bool Igrac, int[,] Tabla){
-		if(Tabla[tablaX, tablaY] == 0){
 			stara = Tabla;
 			if (Igrac){
 				Tabla[tablaX, tablaY] = 1; //X
@@ -103,7 +102,6 @@ class MainClass {
 				Console.SetCursorPosition(kurX, kurY);
 			}
 			nova = Tabla;
-		}
 		
 	}
   
@@ -175,7 +173,7 @@ class MainClass {
 					unosPoteza(Igrac, Tabla);
 				//}
 			}
-			if(ImaLiPromene(stara, nova)) Igrac = !Igrac;
+			if(!ImaLiPromene(stara, nova)) Igrac = !Igrac;
     } while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz);//ako je true, nema vise upisa i program ide dalje
 		Console.SetCursorPosition(0, 13);
 
