@@ -23,6 +23,8 @@ class MainClass {
 
   static int kurX = 2;
   static int kurY = 4;
+	static int tablaX = 0;
+	static int tablaY = 0;
 
   static void CrtanjeTable()
   {
@@ -44,16 +46,28 @@ class MainClass {
 
   //Metode za pomeranje kursora
   public static void PomeriDesno(){
-    if(kurX <= 8) kurX += 6;
+    if(kurX <= 8) {
+			kurX += 6;
+			tablaX++;
+		}
   }
   public static void PomeriDole(){
-    if(kurY <= 9)kurY += 3;
+    if(kurY <= 9){
+			kurY += 3;
+			tablaY++;
+		}
   }
   public static void PomeriLevo(){
-    if(kurX > 7) kurX -= 6;
+    if(kurX > 7) {
+			kurX -= 6;
+			tablaX--;
+		}
   }
   public static void PomeriGore(){
-    if(kurY > 4) kurY -= 3;
+    if(kurY > 4) {
+			kurY -= 3;
+			tablaY--;
+		}
   }
   
   public static void OdaberiPolje(){
@@ -71,7 +85,23 @@ class MainClass {
     } while(cki.Key != ConsoleKey.Enter && cki.Key != ConsoleKey.Escape);
   }
 
-  //static void unosPoteza (bool Igrac, int[,] Tabla)
+  static void unosPoteza (bool Igrac, int[,] Tabla){
+		if(Tabla[tablaX, tablaY] == 0){
+			if (Igrac){
+				Tabla[tablaX, tablaY] = 1; //X
+				Console.SetCursorPosition(kurX, kurY);
+				Console.Write("X");
+				Console.SetCursorPosition(kurX, kurY);
+			} 
+			else {
+				Tabla[tablaX, tablaY] = 2; //O
+				Console.SetCursorPosition(kurX, kurY);
+				Console.Write("O");
+				Console.SetCursorPosition(kurX, kurY);
+			}
+		}
+		
+	}
   
 
 	public static bool Pobeda (int [,] Tabla){
@@ -121,7 +151,7 @@ class MainClass {
 			if (Igrac)
       {
 				OdaberiPolje();
-				//unosPoteza(Igrac, Tabla);
+				unosPoteza(Igrac, Tabla);
 			}
 			else
       {
@@ -129,7 +159,7 @@ class MainClass {
 				//ovo je CPU potez
 				//else {
 					OdaberiPolje();
-					//unosPoteza(Igrac, Tabla);
+					unosPoteza(Igrac, Tabla);
 				//}
 			}
 			Igrac = !Igrac;
