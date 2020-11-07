@@ -163,6 +163,8 @@ class MainClass {
 				//}
 			}
 			Igrac = !Igrac;
-    } while(!Pobeda(Tabla) || !popunjenaTabla(Tabla) || !izlaz); //ako je true, nema vise slobodnih polja
+    } while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz);//ako je true, nema vise upisa i program ide dalje
+		Console.SetCursorPosition(0, 13);
+
 	}
 }
