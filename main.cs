@@ -177,7 +177,12 @@ Pocetak1:
 		while (!(int.TryParse(Console.ReadLine(), out KoPrvi)) || KoPrvi < 1 || KoPrvi > 2) Console.WriteLine("Pogrešan unos, unesite broj igrača koji igra prvi ponovo. (1/2)");
 		if(KoPrvi == 2) Igrac = false;
 		else Igrac = true;
-		
+
+		for(int i = 0; i<3; i++){
+			for(int j = 0; j<3; j++){
+				Tabla[i,j] = 0;
+			}
+		}
 		
     //Glavni deo koda
 		CrtanjeTable();
@@ -225,22 +230,14 @@ Pocetak3:
 		ponovnaIgra = Console.ReadLine();
 		ponovnaIgra = ponovnaIgra.ToUpper();
 		if(ponovnaIgra.CompareTo("R") == 0) {
-			for(int i = 0; i<3; i++){
-				for(int j = 0; j<3; j++){
-					Tabla[i,j] = 0;
-				}
-			}
+			
 			goto Pocetak1;
 		}
 		else if (ponovnaIgra.CompareTo("M") == 0){
 			BrIgraca = 2;
 			Rezultat1 = 0;
 			Rezultat2 = 0;
-			for(int i = 0; i<3; i++){
-				for(int j = 0; j<3; j++){
-					Tabla[i,j] = 0;
-				}
-			}
+			
 			goto Pocetak2;
 		}
 		else if (ponovnaIgra.CompareTo("I") == 0){
