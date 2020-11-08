@@ -77,49 +77,57 @@ class MainClass {
 		}
   }
   
-  public static void OdaberiPolje(){
+  public static void OdaberiPolje()
+  {
     ConsoleKeyInfo cki;
     cki = Console.ReadKey(true);
     do
     {
       Console.SetCursorPosition(kurX, kurY);
       cki = Console.ReadKey();
-      if(cki.Key == ConsoleKey. UpArrow) PomeriGore();
-      else if(cki.Key == ConsoleKey. DownArrow) PomeriDole();
-      else if(cki.Key == ConsoleKey. RightArrow) PomeriDesno();
-      else if(cki.Key == ConsoleKey. LeftArrow) PomeriLevo();
-      else if(cki.Key == ConsoleKey. Escape) izlaz = true; 
-    } while(cki.Key != ConsoleKey.Enter && cki.Key != ConsoleKey.Escape);
+      if (cki.Key == ConsoleKey. UpArrow) PomeriGore();
+      else if (cki.Key == ConsoleKey. DownArrow) PomeriDole();
+      else if (cki.Key == ConsoleKey. RightArrow) PomeriDesno();
+      else if (cki.Key == ConsoleKey. LeftArrow) PomeriLevo();
+      else if (cki.Key == ConsoleKey. Escape) izlaz = true;
+      else
+      {
+        if (cki.Key != ConsoleKey.Enter)
+        {
+          Console.SetCursorPosition(kurX, kurY);
+          Console.Write(" ");
+        }
+      }
+    } while (cki.Key != ConsoleKey.Enter && cki.Key != ConsoleKey.Escape);
   }
 
   static void unosPoteza (ref bool Igrac, int[,] Tabla){
 		
-		if(Tabla[tablaX, tablaY] == 0){
-			
-			Console.SetCursorPosition(2, 4);
-			if (Igrac){
+		if(Tabla[tablaX, tablaY] == 0)
+    {
+			if (Igrac)
+      {
 				Tabla[tablaX, tablaY] = 1; //X
 				Console.SetCursorPosition(kurX, kurY);
 				Console.Write("X");
-				Console.SetCursorPosition(kurX, kurY);
 			} 
-			else {
+			else
+      {
 				Tabla[tablaX, tablaY] = 2; //O
 				Console.SetCursorPosition(kurX, kurY);
 				Console.Write("O");
-				Console.SetCursorPosition(kurX, kurY);
 			}
 			Console.SetCursorPosition(0, 13);
 			Console.WriteLine("                           ");
 			Console.SetCursorPosition(0, 14);
 			Console.WriteLine("                           ");
-			Console.SetCursorPosition(2,4);
 			Igrac = !Igrac;
 		}
-		else{
+		else
+    {
 			Console.SetCursorPosition(0, 13);
 			Console.WriteLine("Nepravilan potez.");
-			Console.SetCursorPosition(2,4);
+			Console.SetCursorPosition(kurX,kurY);
 		}
 
 	}
@@ -141,12 +149,276 @@ class MainClass {
 		return false;
 	}
 
-	/*
-  public static int[,] KompPotez(int[,] Tabla)
+	public static bool BrojanjeHor (int[,] Tabla, int red, int broj)
+	//Metoda gleda da li je moguce da kompjuter zavrsi
+	//svoj potez unutar jednog reda, ili blokira potez igraca
   {
+		int BrojacNeNula = 0;
+		int BrojacNula = 0;
+		for(int i = 0; i<=2; i++){
+			if(Tabla[0,i] == 0) {
+				BrojacNula++;
+			}
+			else if(Tabla[0,i] == broj) BrojacNeNula++;
+		}
+		if (BrojacNula == 1 && BrojacNeNula == 2) return true;
+		return false;
+	}
+  
+	public static bool BrojanjeVer (int[,] Tabla, int kol, int broj)
+	//Metoda gleda da li je moguce da kompjuter zavrsi
+	//svoj potez unutar jedne kolone, ili blokira potez igraca
+  {
+		int BrojacNeNula = 0;
+		int BrojacNula = 0;
+		for(int i = 0; i<=2; i++)
+    {
+			if(Tabla[i, 0] == 0)
+      {
+				BrojacNula++;
+			}
+			else if(Tabla[i, 0] == broj) BrojacNeNula++;
+		}
+		if (BrojacNula == 1 && BrojacNeNula == 2) return true;
+		return false;
+	}
+	public static bool BrojanjeGDij (int[,] Tabla, int broj)
+	//Metoda gleda da li je moguce da kompjuter zavrsi
+	//svoj potez unutar glavne dijagonale, ili blokira potez igraca
+  {
+		int BrojacNeNula = 0;
+		int BrojacNula = 0;
+		for(int i = 0; i<=2; i++)
+    {
+			if(Tabla[i, i] == 0)
+      {
+				BrojacNula++;
+			}
+			else if(Tabla[i, i] == broj) BrojacNeNula++;
+		}
+		if (BrojacNula == 1 && BrojacNeNula == 2) return true;
+		return false;
+	}
+	public static bool BrojanjeSDij (int[,] Tabla, int broj)
+	//Metoda gleda da li je moguce da kompjuter zavrsi
+	//svoj potez unutar druge dijagonale, ili blokira potez igraca
+  {
+		int BrojacNeNula = 0;
+		int BrojacNula = 0;
+		for(int i = 0; i<=2; i++)
+    {
+			if(Tabla[i, 2-i] == 0)
+      {
+				BrojacNula++;
+			}
+			else if(Tabla[i, 2-i] == broj) BrojacNeNula++;
+		}
+		if (BrojacNula == 1 && BrojacNeNula == 2) return true;
+		return false;
+	}
+
+  public static void potezAkoNijeMoguceNiPobeditiNiBlokirati (int[,] Tabla)
+  {
+    Random nasumicanBroj = new Random();
+		int xpotez = 1;
+		int ypotez = 1;
+		while(Tabla[xpotez, ypotez] != 0)
+		{
+			xpotez = nasumicanBroj.Next(0,3);
+			ypotez = nasumicanBroj.Next(0,3);
+		}
+		Console.SetCursorPosition(2 + 6*xpotez, 4+3*ypotez);
+		Console.Write("O");
+		Tabla[xpotez, ypotez] = 2;
 		Igrac = !Igrac;
   }
-  */
+	
+  public static void KompPotez(int[,] Tabla)
+  {
+		//CPU nalazi potez za pobedu:
+		if(BrojanjeHor(Tabla, 0, 2)) //prva vrsta
+    {
+			for (int i = 0; i < 3; i++)
+      {
+				if (Tabla[0,i] == 0)
+        {
+					Console.SetCursorPosition(2 + 6*i, 4);
+					Console.Write("O");
+					Tabla[0,i] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if (BrojanjeHor (Tabla, 1, 2)) //druga vrsta
+    {
+			for (int i = 0; i < 3; i++)
+      {
+				if (Tabla[1,i] == 0)
+        {
+					Console.SetCursorPosition(2+ 6*i, 7);
+					Console.Write("O");
+					Tabla[1,i] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if (BrojanjeHor (Tabla, 2, 2)) //treca vrsta
+    { 
+			for (int i = 0; i<3; i++)
+      {
+				if (Tabla[2,i] == 0)
+        {
+					Console.SetCursorPosition(2 + 6*i, 10);
+					Console.Write("O");
+					Tabla[2,i] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if(BrojanjeVer(Tabla, 0, 2)) { //prva kolona
+			for(int i = 0; i<3; i++){
+				if(Tabla[i,0] == 0) {
+					Console.SetCursorPosition(2, 4+3*i);
+					Console.Write("O");
+					Tabla[i,0] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if (BrojanjeVer (Tabla, 1, 2)) { //druga kolona
+			for(int i = 0; i<3; i++){
+				if(Tabla[i,1] == 0) {
+					Console.SetCursorPosition(8, 4+3*i);
+					Console.Write("O");
+					Tabla[i,1] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if (BrojanjeVer (Tabla, 2, 2)) { //treca kolona
+			for(int i = 0; i<3; i++){
+				if(Tabla[i, 2] == 0) {
+					Console.SetCursorPosition(14, 4+3*i);
+					Console.Write("O");
+					Tabla[i, 2] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if (BrojanjeGDij (Tabla, 2)) {//glavna dijagonala
+			for(int i = 0; i<3; i++){
+				if(Tabla[i, i] == 0) {
+					Console.SetCursorPosition(2+6*i, 4+3*i);
+					Console.Write("O");
+					Tabla[i, i] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if (BrojanjeSDij (Tabla, 2)) {//sporedna dijagonala
+			for(int i = 0; i<3; i++){
+				if(Tabla[i, 2-i] == 0) {
+					Console.SetCursorPosition(2+6*i, 4+3*i);
+					Console.Write("O");
+					Tabla[i, 2-i] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+    
+		//CPU nalazi odbrambeni potez:
+		else if(BrojanjeHor(Tabla, 0, 1)) //prva vrsta
+    {
+			for (int i = 0; i < 3; i++)
+      {
+				if (Tabla[0,i] == 0)
+        {
+					Console.SetCursorPosition(2 + 6*i, 4);
+					Console.Write("O");
+					Tabla[0,i] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if (BrojanjeHor (Tabla, 1, 1)) //druga vrsta
+    {
+			for (int i = 0; i < 3; i++)
+      {
+				if (Tabla[1,i] == 0)
+        {
+					Console.SetCursorPosition(2+ 6*i, 7);
+					Console.Write("O");
+					Tabla[1,i] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if (BrojanjeHor (Tabla, 2, 1)) { //treca vrsta
+			for (int i = 0; i<3; i++)
+      {
+				if (Tabla[2,i] == 0)
+        {
+					Console.SetCursorPosition(2 + 6*i, 10);
+					Console.Write("O");
+					Tabla[2,i] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if(BrojanjeVer(Tabla, 0, 1)) { //prva kolona
+			for(int i = 0; i<3; i++){
+				if(Tabla[i,0] == 0) {
+					Console.SetCursorPosition(2, 4+3*i);
+					Console.Write("O");
+					Tabla[i,0] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if (BrojanjeVer (Tabla, 1, 1)) {//druga kolona
+			for(int i = 0; i<3; i++){
+				if(Tabla[i,1] == 0) {
+					Console.SetCursorPosition(8, 4+3*i);
+					Console.Write("O");
+					Tabla[i,1] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if (BrojanjeVer (Tabla, 2, 1)) {//treca kolona
+			for(int i = 0; i<3; i++){
+				if(Tabla[i, 2] == 0) {
+					Console.SetCursorPosition(14, 4+3*i);
+					Console.Write("O");
+					Tabla[i, 2] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if (BrojanjeGDij (Tabla, 1)) {//glavna dijagonala
+			for(int i = 0; i<3; i++){
+				if(Tabla[i, i] == 0) {
+					Console.SetCursorPosition(2+6*i, 4+3*i);
+					Console.Write("O");
+					Tabla[i, i] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		else if (BrojanjeSDij (Tabla, 1)) {//sporedna dijagonala
+			for(int i = 0; i<3; i++){
+				if(Tabla[i, 2-i] == 0) {
+					Console.SetCursorPosition(2+6*i, 4+3*i);
+					Console.Write("O");
+					Tabla[i, 2-i] = 2;
+				}
+			}
+			Igrac = !Igrac;
+		}
+		//CPU stavlja potez u sredinu ako je prvi
+		//ili bira random potez jer nema izbora:
+		else potezAkoNijeMoguceNiPobeditiNiBlokirati(Tabla);
+  }
 
   public static void Main () {
     //Crtanje pocetne poruke
@@ -165,6 +437,7 @@ class MainClass {
 
 		Console.WriteLine("Igrate li sami ili u 2 igrača? (1/2)");
 		while (!(int.TryParse(Console.ReadLine(), out BrIgraca)) || BrIgraca < 1 || BrIgraca > 2) Console.WriteLine("Pogrešan unos, unesite broj igrača ponovo. (1/2)");
+Unos:
 		Console.WriteLine("Upisati ime prvog igrača(max. 12 karaktera): ");
 		Igrac1 = Console.ReadLine();
 		while(Igrac1.Length>12){
@@ -173,18 +446,24 @@ class MainClass {
 		}
 Pocetak2:
 		if(BrIgraca == 2) {
-			Console.WriteLine("Upisati ime drugog igrača:");
+			Console.WriteLine("Upisati ime drugog igrača (max. 12 karaktera):");
 			Igrac2 = Console.ReadLine();
 			while(Igrac2.Length>12){
 				Console.WriteLine("Preveliko ime. Upisati opet (max. 12 karaktera): ");
 				Igrac2 = Igrac2.Replace(Igrac2,Console.ReadLine());
 			}
 		}
+		if(Igrac1.CompareTo(Igrac2) == 0) goto Unos;
 Pocetak1:
-		Console.WriteLine("Upisati koji igrač igra prvi. (1/2)");
-		while (!(int.TryParse(Console.ReadLine(), out KoPrvi)) || KoPrvi < 1 || KoPrvi > 2) Console.WriteLine("Pogrešan unos, unesite broj igrača koji igra prvi ponovo. (1/2)");
-		if(KoPrvi == 2) Igrac = false;
-		else Igrac = true;
+		if(BrIgraca == 1) Igrac = true;
+		else
+		{
+			Console.WriteLine("Upisati koji igrač igra prvi. (1/2)");
+			while (!(int.TryParse(Console.ReadLine(), out KoPrvi)) || KoPrvi < 1 || KoPrvi > 2) Console.WriteLine("Pogrešan unos, unesite broj igrača koji igra prvi ponovo. (1/2)");
+			if(KoPrvi == 2) Igrac = false;
+			else Igrac = true;
+		}
+		
 
 		for(int i = 0; i<3; i++){
 			for(int j = 0; j<3; j++){
@@ -200,7 +479,7 @@ Pocetak1:
 			if(Igrac) Console.WriteLine(Igrac1);
 			else if (BrIgraca == 2) Console.WriteLine(Igrac2);
 			else if (BrIgraca == 1) Console.WriteLine("Računar");
-			Console.SetCursorPosition(2, 4);
+			Console.SetCursorPosition(kurX, kurY);
 			if (Igrac)
       {
 				OdaberiPolje();
@@ -208,17 +487,22 @@ Pocetak1:
 			}
 			else
       {
-				//if(BrIgraca == 1) KompPotez(Tabla);
+				if(BrIgraca == 1) KompPotez(Tabla);
 				//ovo je CPU potez
-				//else {
+				else 
+				{
 					OdaberiPolje();
 					unosPoteza(ref Igrac, Tabla);
-				//}
+				}
 			}
+			Console.SetCursorPosition(0, 13);
+			Console.WriteLine("                           ");
+			Console.SetCursorPosition(0, 14);
+			Console.WriteLine("                           ");
     } while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz);//ako je true, nema vise upisa i program ide dalje
 		Console.SetCursorPosition(0, 13);
 		//Ispis pobednika:
-		if(!Igrac && Pobeda(Tabla)) {
+		if (!Igrac && Pobeda(Tabla)) {
 			Console.WriteLine("Partija se završila pobedom igrača " + Igrac1 + ".");
 			Rezultat1++;
 		}
