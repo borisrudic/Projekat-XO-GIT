@@ -156,10 +156,10 @@ class MainClass {
 		int BrojacNeNula = 0;
 		int BrojacNula = 0;
 		for(int i = 0; i<=2; i++){
-			if(Tabla[0,i] == 0) {
+			if(Tabla[red, i] == 0) {
 				BrojacNula++;
 			}
-			else if(Tabla[0,i] == broj) BrojacNeNula++;
+			else if(Tabla[red ,i] == broj) BrojacNeNula++;
 		}
 		if (BrojacNula == 1 && BrojacNeNula == 2) return true;
 		return false;
@@ -173,11 +173,11 @@ class MainClass {
 		int BrojacNula = 0;
 		for(int i = 0; i<=2; i++)
     {
-			if(Tabla[i, 0] == 0)
+			if(Tabla[i, kol] == 0)
       {
 				BrojacNula++;
 			}
-			else if(Tabla[i, 0] == broj) BrojacNeNula++;
+			else if(Tabla[i, kol] == broj) BrojacNeNula++;
 		}
 		if (BrojacNula == 1 && BrojacNeNula == 2) return true;
 		return false;
