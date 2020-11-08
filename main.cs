@@ -2,7 +2,7 @@ using System;
 
 class MainClass {
   static int[,] Tabla = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
-	static bool Igrac = true; //ako je igrac 1 na potezu, true
+	static bool Igrac; //ako je igrac 1 na potezu, true
   /*
   Polja table predstavljaju:
   - 0 = nema nista
@@ -26,7 +26,13 @@ class MainClass {
   static int kurY = 4;
 	static int tablaX = 0;
 	static int tablaY = 0;
+	static int BrIgraca;
 
+	static string Igrac1;
+	static string Igrac2 = "igrac";
+
+	static int Rezultat1 = 0;
+	static int Rezultat2 = 0;
   static void CrtanjeTable()
   {
     Console.Clear();
@@ -87,7 +93,9 @@ class MainClass {
   }
 
   static void unosPoteza (ref bool Igrac, int[,] Tabla){
+		
 		if(Tabla[tablaX, tablaY] == 0){
+			
 			Console.SetCursorPosition(2, 4);
 			if (Igrac){
 				Tabla[tablaX, tablaY] = 1; //X
@@ -102,7 +110,9 @@ class MainClass {
 				Console.SetCursorPosition(kurX, kurY);
 			}
 			Console.SetCursorPosition(0, 13);
-			Console.WriteLine("                 ");
+			Console.WriteLine("                           ");
+			Console.SetCursorPosition(0, 14);
+			Console.WriteLine("                           ");
 			Console.SetCursorPosition(2,4);
 			Igrac = !Igrac;
 		}
@@ -112,25 +122,6 @@ class MainClass {
 			Console.SetCursorPosition(2,4);
 		}
 
-		/*
-		if(Tabla[tablaX, tablaY] == 0){
-			stara = Tabla;
-			if (Igrac){
-				Tabla[tablaX, tablaY] = 1; //X
-				Console.SetCursorPosition(kurX, kurY);
-				Console.Write("X");
-				Console.SetCursorPosition(kurX, kurY);
-			} 
-			else {
-				Tabla[tablaX, tablaY] = 2; //O
-				Console.SetCursorPosition(kurX, kurY);
-				Console.Write("O");
-				Console.SetCursorPosition(kurX, kurY);
-			}
-			nova = Tabla;
-		}
-		*/
-		
 	}
   
 
@@ -169,15 +160,34 @@ class MainClass {
 		Console.WriteLine();
 
     //Unos broja igraca
-		int BrIgraca;
 		string ponovnaIgra;
-Pocetak:
+		int KoPrvi;
+
 		Console.WriteLine("Igrate li sami ili u 2 igrača? (1/2)");
 		while (!(int.TryParse(Console.ReadLine(), out BrIgraca)) || BrIgraca < 1 || BrIgraca > 2) Console.WriteLine("Pogrešan unos, unesite broj igrača ponovo. (1/2)");
+		Console.WriteLine("Upisati ime prvog igrača:");
+		Igrac1 = Console.ReadLine();
+Pocetak2:
+	if(BrIgraca == 2) {
+		Console.WriteLine("Upisati ime drugog igrača:");
+		Igrac2 = Igrac2.Replace(Igrac2,Console.ReadLine());
+	}
+Pocetak1:
+		Console.WriteLine("Upisati koji igrač igra prvi. (1/2)");
+		while (!(int.TryParse(Console.ReadLine(), out KoPrvi)) || KoPrvi < 1 || KoPrvi > 2) Console.WriteLine("Pogrešan unos, unesite broj igrača koji igra prvi ponovo. (1/2)");
+		if(KoPrvi == 2) Igrac = false;
+		else Igrac = true;
+		
 		
     //Glavni deo koda
 		CrtanjeTable();
     do {
+			Console.SetCursorPosition(0, 14);
+			Console.Write("Trenutno igra: ");
+			if(Igrac) Console.WriteLine(Igrac1);
+			else if (BrIgraca == 2) Console.WriteLine(Igrac2);
+			else if (BrIgraca == 1) Console.WriteLine("Računar");
+			Console.SetCursorPosition(2, 4);
 			if (Igrac)
       {
 				OdaberiPolje();
@@ -195,21 +205,47 @@ Pocetak:
     } while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz);//ako je true, nema vise upisa i program ide dalje
 		Console.SetCursorPosition(0, 13);
 		//Ispis pobednika:
-		if(!Igrac && Pobeda(Tabla)) Console.WriteLine("Partija se završila pobedom prvog igrača.");
-		else if (Igrac && Pobeda(Tabla) && (BrIgraca == 2)) Console.WriteLine("Partija se završila pobedom drugog igrača.");
-		else if (Igrac && Pobeda(Tabla) && (BrIgraca == 1)) Console.WriteLine("Partija se završila pobedom računara.");
+		if(!Igrac && Pobeda(Tabla)) {
+			Console.WriteLine("Partija se završila pobedom igrača " + Igrac1 + ".");
+			Rezultat1++;
+		}
+		else if (Igrac && Pobeda(Tabla) && (BrIgraca == 2)) {
+			Console.WriteLine("Partija se završila pobedom igrača " + Igrac2 + ".");
+			Rezultat2++;
+		}
+		else if (Igrac && Pobeda(Tabla) && (BrIgraca == 1)) {
+			Console.WriteLine("Partija se završila pobedom računara.");
+			Rezultat2++;
+		}
 		else Console.WriteLine("Partija se završila nerešenim rezultatom.");
-		Console.WriteLine("Želite li ponovnu igru? (D/N)");
+		if(BrIgraca == 2) Console.WriteLine("Trenutni rezultat: {0} {1}:{2} {3}", Igrac1, Rezultat1, Rezultat2, Igrac2);
+		else Console.WriteLine("Trenutni rezultat: {0} {1}:{2} Računar", Igrac1, Rezultat1, Rezultat2);
+Pocetak3:
+		Console.WriteLine("Želite li menjanje drugog igrača, revanš ili izlazite iz programa? (M/R/I)");
 		ponovnaIgra = Console.ReadLine();
 		ponovnaIgra = ponovnaIgra.ToUpper();
-		if(ponovnaIgra.CompareTo("D") == 0) {
-			Igrac = !Igrac; //da uvek igrac 1 pocinje
+		if(ponovnaIgra.CompareTo("R") == 0) {
 			for(int i = 0; i<3; i++){
 				for(int j = 0; j<3; j++){
 					Tabla[i,j] = 0;
 				}
 			}
-			goto Pocetak;
+			goto Pocetak1;
 		}
+		else if (ponovnaIgra.CompareTo("M") == 0){
+			BrIgraca = 2;
+			Rezultat1 = 0;
+			Rezultat2 = 0;
+			for(int i = 0; i<3; i++){
+				for(int j = 0; j<3; j++){
+					Tabla[i,j] = 0;
+				}
+			}
+			goto Pocetak2;
+		}
+		else if (ponovnaIgra.CompareTo("I") == 0){
+			Console.WriteLine("Napuštate program. Doviđenja!");
+		}
+		else goto Pocetak3;
 	}
 }
