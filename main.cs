@@ -29,7 +29,7 @@ class MainClass {
 	static int BrIgraca;
 
 	static string Igrac1;
-	static string Igrac2 = "igrac";
+	static string Igrac2;
 
 	static int Rezultat1 = 0;
 	static int Rezultat2 = 0;
@@ -165,13 +165,21 @@ class MainClass {
 
 		Console.WriteLine("Igrate li sami ili u 2 igrača? (1/2)");
 		while (!(int.TryParse(Console.ReadLine(), out BrIgraca)) || BrIgraca < 1 || BrIgraca > 2) Console.WriteLine("Pogrešan unos, unesite broj igrača ponovo. (1/2)");
-		Console.WriteLine("Upisati ime prvog igrača:");
+		Console.WriteLine("Upisati ime prvog igrača(max. 12 karaktera): ");
 		Igrac1 = Console.ReadLine();
+		while(Igrac1.Length>12){
+			Console.WriteLine("Preveliko ime. Upisati opet (max. 12 karaktera): ");
+			Igrac1 = Igrac1.Replace(Igrac1,Console.ReadLine());
+		}
 Pocetak2:
-	if(BrIgraca == 2) {
-		Console.WriteLine("Upisati ime drugog igrača:");
-		Igrac2 = Igrac2.Replace(Igrac2,Console.ReadLine());
-	}
+		if(BrIgraca == 2) {
+			Console.WriteLine("Upisati ime drugog igrača:");
+			Igrac2 = Console.ReadLine();
+			while(Igrac2.Length>12){
+				Console.WriteLine("Preveliko ime. Upisati opet (max. 12 karaktera): ");
+				Igrac2 = Igrac2.Replace(Igrac2,Console.ReadLine());
+			}
+		}
 Pocetak1:
 		Console.WriteLine("Upisati koji igrač igra prvi. (1/2)");
 		while (!(int.TryParse(Console.ReadLine(), out KoPrvi)) || KoPrvi < 1 || KoPrvi > 2) Console.WriteLine("Pogrešan unos, unesite broj igrača koji igra prvi ponovo. (1/2)");
