@@ -1,5 +1,4 @@
 using System;
-
 class MainClass {
   static int[,] Tabla = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	static bool Igrac; //ako je igrac 1 na potezu, true
@@ -57,7 +56,8 @@ class MainClass {
   //Metode za pomeranje kursora
   public static void PomeriDesno()
   {
-    if (kurX <= 8) {
+    if (kurX <= 8)
+    {
 			kurX += 6;
 			tablaX++;
 		}
@@ -120,12 +120,18 @@ class MainClass {
 				Tabla[tablaX, tablaY] = 1; //X
 				Console.SetCursorPosition(kurX, kurY);
 				Console.Write("X");
+				Console.SetCursorPosition(0, 18);
+        Console.WriteLine("nas Potez je odigran na polju  " + tablaY + " " + tablaX + "                        ");
+				Console.SetCursorPosition(kurX, kurY);
 			} 
 			else
       {
 				Tabla[tablaX, tablaY] = 2; //O
 				Console.SetCursorPosition(kurX, kurY);
 				Console.Write("O");
+				Console.SetCursorPosition(0, 18);
+        Console.WriteLine("nas Potez je odigran na polju  " + tablaY + " " + tablaX + "                        ");
+				Console.SetCursorPosition(kurX, kurY);
 			}
 			Console.SetCursorPosition(0, 13);
 			Console.WriteLine("                           ");
@@ -146,16 +152,16 @@ class MainClass {
 		//provera uspravno
 		for(int i = 0; i < 3; i++)
     {
-			if (Tabla[0,i] != 0 && Tabla[1,i] == Tabla[0,i] && Tabla[2,i] == Tabla[0,i]) return true;
+			if (Tabla[0, i] != 0 && Tabla[1, i] == Tabla[0, i] && Tabla[2, i] == Tabla[0, i]) return true;
 		}
 		//provera vodoravno
 		for(int i = 0; i < 3; i++)
     {
-			if (Tabla[i,0] != 0 && Tabla[i,1] == Tabla[i,0] && Tabla[i,2] == Tabla[i,0]) return true;
+			if (Tabla[i, 0] != 0 && Tabla[i, 1] == Tabla[i, 0] && Tabla[i, 2] == Tabla[i, 0]) return true;
 		}
 		//provera dijagonala
-		if (Tabla[0,0] != 0 && Tabla[1,1] == Tabla[0,0] && Tabla[2,2] == Tabla[0,0]) return true;
-		if (Tabla[2,0] != 0 && Tabla[1,1] == Tabla[2,0] && Tabla[0,2] == Tabla[2,0]) return true;
+		if (Tabla[0, 0] != 0 && Tabla[1, 1] == Tabla[0, 0] && Tabla[2, 2] == Tabla[0, 0]) return true;
+		if (Tabla[2, 0] != 0 && Tabla[1, 1] == Tabla[2, 0] && Tabla[0, 2] == Tabla[2, 0]) return true;
 		//ako nema pogotka
 		return false;
 	}
@@ -172,7 +178,10 @@ class MainClass {
       {
 				BrojacNula++;
 			}
-			else if (Tabla[red, i] == broj) BrojacNeNula++;
+			else if (Tabla[red, i] == broj)
+      {
+        BrojacNeNula++;
+      }
 		}
 		if (BrojacNula == 1 && BrojacNeNula == 2) return true;
 		return false;
@@ -190,7 +199,10 @@ class MainClass {
       {
 				BrojacNula++;
 			}
-			else if(Tabla[i, kol] == broj) BrojacNeNula++;
+			else if (Tabla[i, kol] == broj)
+      {
+        BrojacNeNula++;
+      }
 		}
 		if (BrojacNula == 1 && BrojacNeNula == 2) return true;
 		return false;
@@ -208,7 +220,10 @@ class MainClass {
       {
 				BrojacNula++;
 			}
-			else if (Tabla[i, i] == broj) BrojacNeNula++;
+			else if (Tabla[i, i] == broj)
+      {
+        BrojacNeNula++;
+      }
 		}
 		if (BrojacNula == 1 && BrojacNeNula == 2) return true;
 		return false;
@@ -226,7 +241,10 @@ class MainClass {
       {
 				BrojacNula++;
 			}
-			else if (Tabla[i, 2 - i] == broj) BrojacNeNula++;
+			else if (Tabla[i, 2 - i] == broj)
+      {
+        BrojacNeNula++;
+      }
 		}
 		if (BrojacNula == 1 && BrojacNeNula == 2) return true;
 		return false;
@@ -245,6 +263,9 @@ class MainClass {
 		Console.SetCursorPosition(2 + 6 * xPotez, 4 + 3 * yPotez);
 		Console.Write("O");
 		Tabla[xPotez, yPotez] = 2;
+		Console.SetCursorPosition(0, 17);
+    Console.WriteLine("Potez je odigran na polju " + xPotez +" " + yPotez + "                      ");
+		Console.SetCursorPosition(2 + 6 * xPotez, 4 + 3 * yPotez);
 		Igrac = !Igrac;
   }
 	
@@ -260,6 +281,10 @@ class MainClass {
 					Console.SetCursorPosition(2 + 6 * i, 4);
 					Console.Write("O");
 					Tabla[0, i] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("Potez je odigran na polju 0, " + i + "                      ");
+          Console.SetCursorPosition(2 + 6 * i, 4);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -272,7 +297,11 @@ class MainClass {
         {
 					Console.SetCursorPosition(2 + 6 * i, 7);
 					Console.Write("O");
-					Tabla[1,i] = 2;
+					Tabla[1, i] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("Potez je odigran na polju 1, " + i + "                        ");
+          Console.SetCursorPosition(2 + 6 * i, 7);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -286,6 +315,10 @@ class MainClass {
 					Console.SetCursorPosition(2 + 6 * i, 10);
 					Console.Write("O");
 					Tabla[2, i] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("Potez je odigran na polju 2, " + i + "                        ");
+          Console.SetCursorPosition(2 + 6 * i, 10);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -298,7 +331,11 @@ class MainClass {
         {
 					Console.SetCursorPosition(2, 4 + 3 * i);
 					Console.Write("O");
-					Tabla[i,0] = 2;
+					Tabla[i, 0] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("Potez je odigran na polju " + i + ", 0                        ");
+          Console.SetCursorPosition(2, 4 + 3 * i);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -307,14 +344,19 @@ class MainClass {
     { 
 			for (int i = 0; i < 3; i++)
       {
-				if (Tabla[i,1] == 0)
+				if (Tabla[i, 1] == 0)
         {
 					Console.SetCursorPosition(8, 4 + 3 * i);
 					Console.Write("O");
 					Tabla[i, 1] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("Potez je odigran na polju " + i + ", 1                        ");
+          Console.SetCursorPosition(8, 4 + 3 * i);
+          break;
 				}
 			}
 			Igrac = !Igrac;
+
 		}
 		else if (BrojanjeVer (Tabla, 2, 2)) //treca kolona
     { 
@@ -325,6 +367,10 @@ class MainClass {
 					Console.SetCursorPosition(14, 4 + 3 * i);
 					Console.Write("O");
 					Tabla[i, 2] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("Potez je odigran na polju " + i + ", 2                        ");
+          Console.SetCursorPosition(14, 4 + 3 * i);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -338,6 +384,10 @@ class MainClass {
 					Console.SetCursorPosition(2 + 6 * i, 4 + 3 * i);
 					Console.Write("O");
 					Tabla[i, i] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("Potez je odigran na polju " + i + " " + i + "                 ");
+          Console.SetCursorPosition(2 + 6 * i, 4 + 3 * i);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -346,14 +396,19 @@ class MainClass {
     {
 			for (int i = 0; i < 3; i++)
       {
-				if (Tabla[i, 2-i] == 0)
+				if (Tabla[i, 2 - i] == 0)
         {
-					Console.SetCursorPosition(2 + 6 * i, 4 + 3 * i);
+					Console.SetCursorPosition(14 - 6 * i, 4 + 3 * i);
 					Console.Write("O");
 					Tabla[i, 2 - i] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("Potez je odigran na polju " + i + " " + (2 - i) + "           ");
+          Console.SetCursorPosition(14 - 6 * i, 4 + 3 * i);
+          break;
 				}
 			}
 			Igrac = !Igrac;
+      return;
 		}
     
 		//CPU nalazi odbrambeni potez:
@@ -363,9 +418,13 @@ class MainClass {
       {
 				if (Tabla[0, i] == 0)
         {
-					Console.SetCursorPosition(2 + 6 * i, 4);
+					Console.SetCursorPosition(2 + 6 * i, 4); //sa
 					Console.Write("O");
 					Tabla[0, i] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("odbrambeni Potez je odigran na polju 0, " + i + "             ");
+          Console.SetCursorPosition(2 + 6 * i, 4);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -379,6 +438,10 @@ class MainClass {
 					Console.SetCursorPosition(2 + 6 * i, 7);
 					Console.Write("O");
 					Tabla[1, i] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("odbrambeni Potez je odigran na polju 1, " + i + "             ");
+          Console.SetCursorPosition(2 + 6 * i, 7);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -392,6 +455,10 @@ class MainClass {
 					Console.SetCursorPosition(2 + 6 * i, 10);
 					Console.Write("O");
 					Tabla[2, i] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("odbrambeni Potez je odigran na polju 2, " + i + "             ");
+          Console.SetCursorPosition(2 + 6 * i, 10);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -405,6 +472,10 @@ class MainClass {
 					Console.SetCursorPosition(2, 4 + 3 * i);
 					Console.Write("O");
 					Tabla[i, 0] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("odbrambeni Potez je odigran na polju " + i + ", 0             ");
+          Console.SetCursorPosition(2, 4 + 3 * i);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -418,6 +489,10 @@ class MainClass {
 					Console.SetCursorPosition(8, 4 + 3 * i);
 					Console.Write("O");
 					Tabla[i, 1] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("odbrambeni Potez je odigran na polju " + i + ", 1             ");
+          Console.SetCursorPosition(8, 4 + 3 * i);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -431,6 +506,10 @@ class MainClass {
 					Console.SetCursorPosition(14, 4 + 3 * i);
 					Console.Write("O");
 					Tabla[i, 2] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("odbrambeni Potez je odigran na polju " + i + ", 2             ");
+          Console.SetCursorPosition(14, 4 + 3 * i);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -444,6 +523,10 @@ class MainClass {
 					Console.SetCursorPosition(2 + 6 * i, 4 + 3 * i);
 					Console.Write("O");
 					Tabla[i, i] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("odbrambeni Potez je odigran na polju " + i + " " + i + "        ");
+          Console.SetCursorPosition(2 + 6 * i, 4 + 3 * i);
+          break;
 				}
 			}
 			Igrac = !Igrac;
@@ -454,9 +537,13 @@ class MainClass {
       {
 				if (Tabla[i, 2 - i] == 0)
         {
-					Console.SetCursorPosition(14 - 6 * i, 4 + 3 * i);//greska
+					Console.SetCursorPosition(14 - 6 * i, 4 + 3 * i); //greska
 					Console.Write("O");
 					Tabla[i, 2 - i] = 2;
+          Console.SetCursorPosition(0, 17);
+          Console.WriteLine("odbrambeni Potez je odigran na polju " + i + " " + (2 - i) + "  ");
+          Console.SetCursorPosition(14 - 6 * i, 4 + 3 * i);
+          break;
 				}
 			}
 			Igrac = !Igrac;
