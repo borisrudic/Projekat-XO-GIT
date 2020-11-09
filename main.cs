@@ -368,14 +368,18 @@ class MainClass {
       {
 				if (Tabla[i, 2 - i] == 0)
         {
-					Console.SetCursorPosition(14 - 6 * i, 4 + 3 * i);
+					if (i == 2) Console.SetCursorPosition(14, 4);
+					else if(i == 1) Console.SetCursorPosition(8, 7);
+					else Console.SetCursorPosition(2, 10);
+					//i = 2: 2, 0 = hor 2, ver 10
+					//i = 1: 1, 1 = hor 8, ver 7
+					//i = 0: 0, 2 = hor 14, ver 4
 					Console.Write("O");
 					Tabla[i, 2 - i] = 2;
           break;
 				}
 			}
 			Igrac = !Igrac;
-      return;
 		}
     
 		//CPU nalazi odbrambeni potez:
@@ -483,7 +487,9 @@ class MainClass {
       {
 				if (Tabla[i, 2 - i] == 0)
         {
-					Console.SetCursorPosition(14 - 6 * i, 4 + 3 * i); //greska
+					if (i == 2) Console.SetCursorPosition(14, 4);
+					else if(i == 1) Console.SetCursorPosition(8, 7);
+					else Console.SetCursorPosition(2, 10);
 					Console.Write("O");
 					Tabla[i, 2 - i] = 2;
           break;
@@ -516,9 +522,10 @@ class MainClass {
 Unos:
 		Console.WriteLine("Upisati ime prvog igrača (max. 12 karaktera): ");
 		Igrac1 = Console.ReadLine();
-		while (Igrac1.Length > 12)
+		while (Igrac1.Length > 12 || Igrac1 == "")
     {
-			Console.WriteLine("Preveliko ime. Upisati opet (max. 12 karaktera): ");
+			Console.WriteLine("Pogrešan unos. Upisati opet (max. 12 karaktera): ");
+      Igrac1 = "a";
 			Igrac1 = Igrac1.Replace(Igrac1,Console.ReadLine());
 		}
 Pocetak2:
@@ -526,13 +533,18 @@ Pocetak2:
     {
 			Console.WriteLine("Upisati ime drugog igrača (max. 12 karaktera):");
 			Igrac2 = Console.ReadLine();
-			while (Igrac2.Length>12)
+			while (Igrac2.Length>12 || Igrac2 == "")
       {
-				Console.WriteLine("Preveliko ime. Upisati opet (max. 12 karaktera): ");
+				Console.WriteLine("Pogrešan unos. Upisati opet (max. 12 karaktera): ");
+				Igrac2 = "a";
 				Igrac2 = Igrac2.Replace(Igrac2,Console.ReadLine());
 			}
 		}
-		if (Igrac1.CompareTo(Igrac2) == 0) goto Unos;
+		if (Igrac1.CompareTo(Igrac2) == 0)
+    {
+			Console.WriteLine("Greška. Nazivi ne smeju biti isti.");
+			goto Unos;
+		}
 Pocetak1:
 		if (BrIgraca == 1) Igrac = true;
 		else
@@ -596,8 +608,10 @@ Pocetak1:
 			Rezultat2++;
 		}
 		else Console.WriteLine("Partija se završila nerešenim rezultatom.");
+		Console.WriteLine();
 		if(BrIgraca == 2) Console.WriteLine("Trenutni rezultat: {0} {1}:{2} {3}", Igrac1, Rezultat1, Rezultat2, Igrac2);
 		else Console.WriteLine("Trenutni rezultat: {0} {1}:{2} Računar", Igrac1, Rezultat1, Rezultat2);
+		Console.WriteLine();
 Pocetak3:
 		Console.WriteLine("Želite li menjanje drugog igrača, revanš ili izlazite iz programa? (M/R/I)");
 		ponovnaIgra = Console.ReadLine();
