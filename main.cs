@@ -90,7 +90,6 @@ class MainClass {
   public static void OdaberiPolje()
   {
     ConsoleKeyInfo dugme;
-    dugme = Console.ReadKey(true);
     do
     {
       Console.SetCursorPosition(kurX, kurY);
