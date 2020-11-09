@@ -617,10 +617,6 @@ Pocetak1:
 					unosPoteza(ref Igrac, Tabla);
 				}
 			}
-			Console.SetCursorPosition(0, 13);
-			Console.WriteLine("                           ");
-			Console.SetCursorPosition(0, 14);
-			Console.WriteLine("                           ");
     } while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz); //ako je true, nema vise upisa i program ide dalje
 		Console.SetCursorPosition(0, 13);
 		//Ispis pobednika:
