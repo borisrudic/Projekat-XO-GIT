@@ -302,6 +302,65 @@ class MainClass {
 		Console.Write("O");
 		Tabla[xPotez, yPotez] = 2;
 		Igrac = !Igrac;
+    
+    /* ALTERNATIVNI potezAkoNijeMoguceNiPobeditiNiBlokiratiNiSprecitiZamku:
+    if (Tabla[1, 1] == 0)
+    {
+      Console.SetCursorPosition(8, 7);
+		  Console.Write("O");
+      Console.SetCursorPosition(8, 7);
+      Tabla[1, 1] = 2;
+      Igrac = !Igrac;
+    }
+    else if (Tabla[1, 0] == 0)
+    {
+      Console.SetCursorPosition(8, 4);
+		  Console.Write("O");
+      Console.SetCursorPosition(8, 4);
+      Tabla[1, 0] = 2;
+      Igrac = !Igrac;
+    }
+    else if (Tabla[0, 1] == 0)
+    {
+      Console.SetCursorPosition(2, 7);
+		  Console.Write("O");
+      Console.SetCursorPosition(2, 7);
+      Tabla[0, 1] = 2;
+      Igrac = !Igrac;
+    }
+    else if (Tabla[2, 1] == 0)
+    {
+      Console.SetCursorPosition(14, 7);
+		  Console.Write("O");
+      Console.SetCursorPosition(14, 7);
+      Tabla[2, 1] = 2;
+      Igrac = !Igrac;
+    }
+    else if (Tabla[1, 2] == 0)
+    {
+      Console.SetCursorPosition(8, 10);
+		  Console.Write("O");
+      Console.SetCursorPosition(8, 10);
+      Tabla[1, 2] = 2;
+      Igrac = !Igrac;
+    }
+    else
+    {
+      Random nasumicanBroj = new Random();
+		  int xPotez = nasumicanBroj.Next(0, 3);
+		  int yPotez = nasumicanBroj.Next(0, 3);
+      while (Tabla[xPotez, yPotez] != 0)
+		  {
+			  xPotez = nasumicanBroj.Next(0, 3);
+			  yPotez = nasumicanBroj.Next(0, 3);
+		  }
+      Console.SetCursorPosition(2 + 6 * xPotez, 4 + 3 * yPotez);
+      Console.Write("O");
+      Console.SetCursorPosition(2 + 6 * xPotez, 4 + 3 * yPotez);
+      Tabla[xPotez, yPotez] = 2;
+      Igrac = !Igrac;
+    }
+    */
   }
 	
   public static void KompPotez(int[,] Tabla)
