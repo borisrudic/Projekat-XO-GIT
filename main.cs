@@ -127,16 +127,14 @@ class MainClass {
 				Console.SetCursorPosition(kurX, kurY);
 				Console.Write("O");
 			}
-			Console.SetCursorPosition(0, 13);
-			Console.WriteLine("                           ");
-			Console.SetCursorPosition(0, 14);
-			Console.WriteLine("                           ");
+			Console.SetCursorPosition(0,13);
+			Console.WriteLine("                   ");
 			Igrac = !Igrac;
 		}
 		else
     {
 			Console.SetCursorPosition(0, 13);
-			Console.WriteLine("Nepravilan potez.");
+			Console.WriteLine("Nedozvoljen potez.");
 			Console.SetCursorPosition(kurX,kurY);
 		}
 	}
@@ -668,6 +666,8 @@ Pocetak1:
 				}
 
 			}
+			Console.SetCursorPosition(0, 14);
+			Console.WriteLine("                           ");
     } while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz); //ako je true, nema vise upisa i program ide dalje
 		Console.SetCursorPosition(0, 13);
 		//Ispis pobednika:
