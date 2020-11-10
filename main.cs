@@ -8,6 +8,7 @@ class MainClass {
   - 1 = X
   - 2 = O
   */
+
   static bool izlaz = false; //napuštanje programa
 
   static bool popunjenaTabla (int [,] Tabla) //ako je true, nema vise slobodnih polja na tabli
@@ -243,7 +244,53 @@ class MainClass {
 		return false;
 	}
 
-  public static void potezAkoNijeMoguceNiPobeditiNiBlokirati (int[,] Tabla)
+  public static bool zamka (int[,] Tabla) //metoda koja detektuje da li protivnik sprema zamku na tabli
+  {
+    if (Tabla[0, 1] == 1 && Tabla[1, 0] == 1 && Tabla[0, 0] == 0) return true;
+    else if (Tabla[0, 1] == 1 && Tabla[1, 2] == 1 && Tabla[0, 2] == 0) return true;
+    else if (Tabla[1, 2] == 1 && Tabla[2, 1] == 1 && Tabla[2, 2] == 0) return true;
+    else if (Tabla[1, 0] == 1 && Tabla[2, 1] == 1 && Tabla[2, 0] == 0) return true;
+    else return false;
+  }
+
+  public static void potezKojiSprecavaZamku (int[,] Tabla)
+  {
+    if (Tabla[0, 1] == 1 && Tabla[1, 0] == 1 && Tabla[0, 0] == 0)
+    {
+      Console.SetCursorPosition(2, 4);
+      Console.Write("O");
+      Console.SetCursorPosition(2, 4);
+      Tabla[0, 0] = 2;
+      Igrac = !Igrac;
+    }
+    else if (Tabla[1, 0] == 1 && Tabla[2, 1] == 1 && Tabla[2, 0] == 0)
+    {
+      Console.SetCursorPosition(14, 4);
+      Console.Write("O");
+      Console.SetCursorPosition(14, 4);
+      Tabla[2, 0] = 2;
+      Igrac = !Igrac;
+    }
+    else if (Tabla[1, 2] == 1 && Tabla[2, 1] == 1 && Tabla[2, 2] == 0)
+    {
+      Console.SetCursorPosition(14, 10);
+      Console.Write("O");
+      Console.SetCursorPosition(14, 10);
+      Tabla[2, 2] = 2;
+      Igrac = !Igrac;
+    }
+    //else if (Tabla[0, 1] == 1 && Tabla[1, 2] == 1 && Tabla[0, 2] == 0)//mzd moze samo else
+    else
+    {
+      Console.SetCursorPosition(2, 10);
+      Console.Write("O");
+      Console.SetCursorPosition(2, 10);
+      Tabla[0, 2] = 2;
+      Igrac = !Igrac;
+    }
+  }
+
+  public static void potezAkoNijeMoguceNiPobeditiNiBlokiratiNiSprecitiZamku (int[,] Tabla)
   {
     Random nasumicanBroj = new Random();
 		int xPotez = 1;
@@ -496,9 +543,12 @@ class MainClass {
 			}
 			Igrac = !Igrac;
 		}
-		//CPU stavlja potez u sredinu ako je prvi
+    //CPU ispituje da li protivnik pravi zamku na tabli
+    //i sprečava je ako je tako
+    else if (zamka(Tabla)) potezKojiSprecavaZamku(Tabla);
+		//CPU stavlja potez u sredinu ako nije zauzeta
 		//ili bira random potez jer ne može ni da pobedi ni da blokira:
-		else potezAkoNijeMoguceNiPobeditiNiBlokirati(Tabla);
+		else potezAkoNijeMoguceNiPobeditiNiBlokiratiNiSprecitiZamku(Tabla);
   }
   static string UnosPrviIgrac()
   {
@@ -616,6 +666,7 @@ Pocetak1:
 					OdaberiPolje();
 					unosPoteza(ref Igrac, Tabla);
 				}
+
 			}
     } while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz); //ako je true, nema vise upisa i program ide dalje
 		Console.SetCursorPosition(0, 13);
