@@ -1,4 +1,5 @@
 using System;
+//!!!!! izmeniti metodu: potezAkoNijeMoguceNiPobeditiNiBlokiratiNiSprecitiZamku (kada komp igra drugi)DODATI DA KOMPJUTER UVEK IGRA COSAK KADA JE PRVI POTEZ PROTIVNIKA U SREDINI
 class MainClass {
   static int[,] Tabla = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	static bool Igrac; //ako je igrac 1 na potezu, true
@@ -17,7 +18,7 @@ class MainClass {
     {
 			for (int j = 0; j < 3; j++)
       {
-				if (Tabla[i,j] == 0) return false;
+				if (Tabla[i, j] == 0) return false;
 			}
 		}
 		return true;
@@ -95,20 +96,12 @@ class MainClass {
     do
     {
       Console.SetCursorPosition(kurX, kurY);
-      dugme = Console.ReadKey();
+      dugme = Console.ReadKey(true);
       if (dugme.Key == ConsoleKey.UpArrow) PomeriGore();
       else if (dugme.Key == ConsoleKey.DownArrow) PomeriDole();
       else if (dugme.Key == ConsoleKey.RightArrow) PomeriDesno();
       else if (dugme.Key == ConsoleKey.LeftArrow) PomeriLevo();
       else if (dugme.Key == ConsoleKey.Escape) izlaz = true;
-      else
-      {
-        if (dugme.Key != ConsoleKey.Enter)
-        {
-          Console.SetCursorPosition(kurX, kurY);
-          Console.Write(" ");
-        }
-      }
     } while (dugme.Key != ConsoleKey.Enter && dugme.Key != ConsoleKey.Escape);
   }
 
@@ -949,7 +942,6 @@ class MainClass {
 				Console.WriteLine("Preveliko ime. Upisati opet (max. 12 karaktera): ");
 				Igrac2 = Igrac2.Replace(Igrac2,Console.ReadLine());
 			}
-      Console.Clear();
       return Igrac2;
   }
   static void IspisPobednika()
@@ -1020,6 +1012,7 @@ Pocetak1:
 		}
 		
     //Glavni deo koda
+		Console.Clear();
 		CrtanjeTable();
     do {
 			Console.SetCursorPosition(0, 14);
