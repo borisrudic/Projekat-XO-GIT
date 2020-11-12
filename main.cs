@@ -1012,7 +1012,6 @@ Pocetak1:
 		}
 		
     //Glavni deo koda
-		Console.Clear();
 		CrtanjeTable();
     do {
 			Console.SetCursorPosition(0, 14);
