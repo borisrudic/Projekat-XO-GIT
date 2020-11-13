@@ -1107,14 +1107,20 @@ class MainClass {
 		PocetnaPoruka();
     //Unos broja igraca
 		string ponovnaIgra;
+    int PonovnaIgraMiliR=0;
 		BrojIgraca();
     UnosPrviIgrac();
-Pocetak2:
-		ProveraNaziva(BrIgraca, Igrac1);
-Pocetak1:
-		KoPrviIgra();
+    ProveraNaziva(BrIgraca, Igrac1);
+    KoPrviIgra();
     PocetnaTabla(Tabla);
-		
+    do
+    {
+    if (PonovnaIgraMiliR==1) ProveraNaziva(BrIgraca, Igrac1);
+		if(PonovnaIgraMiliR==2 || PonovnaIgraMiliR==1)
+    {
+      KoPrviIgra();
+      PocetnaTabla(Tabla);
+    }
     //Glavni deo koda
 		CrtanjeTable();
     do {
@@ -1154,19 +1160,21 @@ Pocetak1:
 			ponovnaIgra = ponovnaIgra.ToUpper();
 			if (ponovnaIgra.CompareTo("R") == 0)
 			{
-				goto Pocetak1;
+				PonovnaIgraMiliR=2;
 			}
 			else if (ponovnaIgra.CompareTo("M") == 0)
 			{
 				BrIgraca = 2;
 				Rezultat1 = 0;
 				Rezultat2 = 0;
-				goto Pocetak2;
+				PonovnaIgraMiliR=1;
 			}
 			else if (ponovnaIgra.CompareTo("I") == 0)
 			{
 				Console.WriteLine("Napuštate program. Doviđenja!");
 			}
 		} while (ponovnaIgra.CompareTo("R") != 0 && ponovnaIgra.CompareTo("M") != 0 && ponovnaIgra.CompareTo("I") != 0);
+
+    }while(ponovnaIgra.CompareTo("I") != 0);
 	}
 }
