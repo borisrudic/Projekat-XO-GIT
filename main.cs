@@ -1147,25 +1147,26 @@ Pocetak1:
 		//Ispis pobednika:
 		IspisPobednika();
 		Console.WriteLine();
-Pocetak3:
-		Console.WriteLine("Želite li menjanje drugog igrača, revanš ili izlazite iz programa? (M/R/I)");
-		ponovnaIgra = Console.ReadLine();
-		ponovnaIgra = ponovnaIgra.ToUpper();
-		if (ponovnaIgra.CompareTo("R") == 0)
-    {
-			goto Pocetak1;
-		}
-		else if (ponovnaIgra.CompareTo("M") == 0)
-    {
-			BrIgraca = 2;
-			Rezultat1 = 0;
-			Rezultat2 = 0;
-			goto Pocetak2;
-		}
-		else if (ponovnaIgra.CompareTo("I") == 0)
-    {
-			Console.WriteLine("Napuštate program. Doviđenja!");
-		}
-		else goto Pocetak3;
+    do
+		{
+			Console.WriteLine("Želite li menjanje drugog igrača, revanš ili izlazite iz programa? (M/R/I)");
+			ponovnaIgra = Console.ReadLine();
+			ponovnaIgra = ponovnaIgra.ToUpper();
+			if (ponovnaIgra.CompareTo("R") == 0)
+			{
+				goto Pocetak1;
+			}
+			else if (ponovnaIgra.CompareTo("M") == 0)
+			{
+				BrIgraca = 2;
+				Rezultat1 = 0;
+				Rezultat2 = 0;
+				goto Pocetak2;
+			}
+			else if (ponovnaIgra.CompareTo("I") == 0)
+			{
+				Console.WriteLine("Napuštate program. Doviđenja!");
+			}
+		} while (ponovnaIgra.CompareTo("R") != 0 && ponovnaIgra.CompareTo("M") != 0 && ponovnaIgra.CompareTo("I") != 0);
 	}
 }
