@@ -419,24 +419,90 @@ class MainClass {
       }
       else
       {
-        Random nasumicanBroj = new Random();
-        int xPotez = 1;
-        int yPotez = 1;
-        while (Tabla[xPotez, yPotez] != 0)
+        if (Tabla[0, 0] == 0 || Tabla[0, 2] == 0 || Tabla[2, 0] == 0 || Tabla[2, 2] == 0)
         {
-          xPotez = nasumicanBroj.Next(0, 3);
-          yPotez = nasumicanBroj.Next(0, 3);
+          if (Tabla[0, 0] == 0)
+          {
+            if (KoPrvi == 1)
+            {
+              Tabla[0, 0] = 2;
+              Console.SetCursorPosition(2, 4);
+              Console.Write("O");
+            }
+            else
+            {
+              Tabla[0, 0] = 1;
+              Console.SetCursorPosition(2, 4);
+              Console.Write("X");
+            }
+          }
+          else if (Tabla[0, 2] == 0)
+          {
+            if (KoPrvi == 1)
+            {
+              Tabla[2, 0] = 2;
+              Console.SetCursorPosition(14, 4);
+              Console.Write("O");
+            }
+            else
+            {
+              Tabla[2, 0] = 1;
+              Console.SetCursorPosition(14, 4);
+              Console.Write("X");
+            }
+          }
+          else if (Tabla[2, 0] == 0)
+          {
+            if (KoPrvi == 1)
+            {
+              Tabla[0, 2] = 2;
+              Console.SetCursorPosition(2, 10);
+              Console.Write("O");
+            }
+            else
+            {
+              Tabla[0, 2] = 1;
+              Console.SetCursorPosition(2, 10);
+              Console.Write("X");
+            }
+          }
+          else
+          {
+            if (KoPrvi == 1)
+            {
+              Tabla[2, 2] = 2;
+              Console.SetCursorPosition(14, 10);
+              Console.Write("O");
+            }
+            else
+            {
+              Tabla[2, 2] = 1;
+              Console.SetCursorPosition(14, 10);
+              Console.Write("X");
+            }
+          }
         }
-        Console.SetCursorPosition(2 + 6 * xPotez, 4 + 3 * yPotez);
-        if (KoPrvi == 1) 
+        else
         {
-          Console.Write("O");
-          Tabla[xPotez, yPotez] = 2;
-        }
-        else 
-        {
-          Console.Write("X");
-          Tabla[xPotez, yPotez] = 1;
+          Random nasumicanBroj = new Random();
+          int xPotez = 1;
+          int yPotez = 1;
+          while (Tabla[xPotez, yPotez] != 0)
+          {
+            xPotez = nasumicanBroj.Next(0, 3);
+            yPotez = nasumicanBroj.Next(0, 3);
+          }
+          Console.SetCursorPosition(2 + 6 * xPotez, 4 + 3 * yPotez);
+          if (KoPrvi == 1) 
+          {
+            Console.Write("O");
+            Tabla[xPotez, yPotez] = 2;
+          }
+          else 
+          {
+            Console.Write("X");
+            Tabla[xPotez, yPotez] = 1;
+          }
         }
         Igrac = !Igrac;
       }
@@ -1027,36 +1093,6 @@ class MainClass {
 		for (int i = 1; i <= 20; i++) Console.Write("-");
 		Console.WriteLine();
   }
-
-  /*public static void GlavniKod()
-  {
-    CrtanjeTable();
-    do {
-			Console.SetCursorPosition(0, 14);
-			Console.Write("Trenutno igra: ");
-			if (Igrac) Console.WriteLine(Igrac1);
-			else if (BrIgraca == 2) Console.WriteLine(Igrac2);
-			else if (BrIgraca == 1) Console.WriteLine("Računar");
-			Console.SetCursorPosition(kurX, kurY);
-			if (Igrac)
-      {
-				OdaberiPolje();
-				unosPoteza(ref Igrac, Tabla, KoPrvi);
-			}
-			else
-      {
-				if (BrIgraca == 1) KompPotez(Tabla, KoPrvi);
-				//ovo je CPU potez
-				else 
-				{
-					OdaberiPolje();
-					unosPoteza(ref Igrac, Tabla, KoPrvi);
-				}
-			}
-			Console.SetCursorPosition(0, 14);
-			Console.WriteLine("                           ");
-    } while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz);
-  }*/
   
   public static int[,] PocetnaTabla (int[,] Tabla)
   {
@@ -1115,66 +1151,65 @@ class MainClass {
     PocetnaTabla(Tabla);
     do
     {
-    if (PonovnaIgraMiliR==1) ProveraNaziva(BrIgraca, Igrac1);
-		if(PonovnaIgraMiliR==2 || PonovnaIgraMiliR==1)
-    {
-      KoPrviIgra();
-      PocetnaTabla(Tabla);
-    }
-    //Glavni deo koda
-		CrtanjeTable();
-    do {
-			Console.SetCursorPosition(0, 14);
-			Console.Write("Trenutno igra: ");
-			if (Igrac) Console.WriteLine(Igrac1);
-			else if (BrIgraca == 2) Console.WriteLine(Igrac2);
-			else if (BrIgraca == 1) Console.WriteLine("Računar");
-			Console.SetCursorPosition(kurX, kurY);
-			if (Igrac)
-      {
-				OdaberiPolje();
-				unosPoteza(ref Igrac, Tabla, KoPrvi);
+			if (PonovnaIgraMiliR==1) ProveraNaziva(BrIgraca, Igrac1);
+			if(PonovnaIgraMiliR==2 || PonovnaIgraMiliR==1)
+			{
+				KoPrviIgra();
+				PocetnaTabla(Tabla);
 			}
-			else
-      {
-				if (BrIgraca == 1) KompPotez(Tabla, KoPrvi);
-				//ovo je CPU potez
-				else 
+			//Glavni deo koda
+			CrtanjeTable();
+			do {
+				Console.SetCursorPosition(0, 14);
+				Console.Write("Trenutno igra: ");
+				if (Igrac) Console.WriteLine(Igrac1);
+				else if (BrIgraca == 2) Console.WriteLine(Igrac2);
+				else if (BrIgraca == 1) Console.WriteLine("Računar");
+				Console.SetCursorPosition(kurX, kurY);
+				if (Igrac)
 				{
 					OdaberiPolje();
 					unosPoteza(ref Igrac, Tabla, KoPrvi);
 				}
-			}
-			Console.SetCursorPosition(0, 14);
-			Console.WriteLine("                           ");
-    } while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz);
-    //ako je true, nema vise upisa i program ide dalje
-		Console.SetCursorPosition(0, 13);
-		//Ispis pobednika:
-		IspisPobednika();
-		Console.WriteLine();
-    do
-		{
-			Console.WriteLine("Želite li menjanje drugog igrača, revanš ili izlazite iz programa? (M/R/I)");
-			ponovnaIgra = Console.ReadLine();
-			ponovnaIgra = ponovnaIgra.ToUpper();
-			if (ponovnaIgra.CompareTo("R") == 0)
+				else
+				{
+					if (BrIgraca == 1) KompPotez(Tabla, KoPrvi);
+					//ovo je CPU potez
+					else 
+					{
+						OdaberiPolje();
+						unosPoteza(ref Igrac, Tabla, KoPrvi);
+					}
+				}
+				Console.SetCursorPosition(0, 14);
+				Console.WriteLine("                           ");
+			} while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz);
+			//ako je true, nema vise upisa i program ide dalje
+			Console.SetCursorPosition(0, 13);
+			//Ispis pobednika:
+			IspisPobednika();
+			Console.WriteLine();
+			do
 			{
-				PonovnaIgraMiliR=2;
-			}
-			else if (ponovnaIgra.CompareTo("M") == 0)
-			{
-				BrIgraca = 2;
-				Rezultat1 = 0;
-				Rezultat2 = 0;
-				PonovnaIgraMiliR=1;
-			}
-			else if (ponovnaIgra.CompareTo("I") == 0)
-			{
-				Console.WriteLine("Napuštate program. Doviđenja!");
-			}
-		} while (ponovnaIgra.CompareTo("R") != 0 && ponovnaIgra.CompareTo("M") != 0 && ponovnaIgra.CompareTo("I") != 0);
-
-    }while(ponovnaIgra.CompareTo("I") != 0);
+				Console.WriteLine("Želite li menjanje drugog igrača, revanš ili izlazite iz programa? (M/R/I)");
+				ponovnaIgra = Console.ReadLine();
+				ponovnaIgra = ponovnaIgra.ToUpper();
+				if (ponovnaIgra.CompareTo("R") == 0)
+				{
+					PonovnaIgraMiliR=2;
+				}
+				else if (ponovnaIgra.CompareTo("M") == 0)
+				{
+					BrIgraca = 2;
+					Rezultat1 = 0;
+					Rezultat2 = 0;
+					PonovnaIgraMiliR=1;
+				}
+				else if (ponovnaIgra.CompareTo("I") == 0)
+				{
+					Console.WriteLine("Napuštate program. Doviđenja!");
+				}
+			} while (ponovnaIgra.CompareTo("R") != 0 && ponovnaIgra.CompareTo("M") != 0 && ponovnaIgra.CompareTo("I") != 0);
+    } while(ponovnaIgra.CompareTo("I") != 0);
 	}
 }
