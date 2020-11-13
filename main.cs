@@ -9,8 +9,6 @@ class MainClass {
   - 2 = O
   */
 
-  static bool izlaz = false; //napuštanje programa
-
   static bool popunjenaTabla (int [,] Tabla) //ako je true, nema vise slobodnih polja na tabli
   {
 		for (int i = 0; i < 3; i++)
@@ -100,8 +98,7 @@ class MainClass {
       else if (dugme.Key == ConsoleKey.DownArrow) PomeriDole();
       else if (dugme.Key == ConsoleKey.RightArrow) PomeriDesno();
       else if (dugme.Key == ConsoleKey.LeftArrow) PomeriLevo();
-      else if (dugme.Key == ConsoleKey.Escape) izlaz = true;
-    } while (dugme.Key != ConsoleKey.Enter && dugme.Key != ConsoleKey.Escape);
+    } while (dugme.Key != ConsoleKey.Enter);
   }
 
   static void unosPoteza (ref bool Igrac, int[,] Tabla, int KoPrvi)
@@ -436,7 +433,7 @@ class MainClass {
               Console.Write("X");
             }
           }
-          else if (Tabla[0, 2] == 0)
+          else if (Tabla[2, 0] == 0)
           {
             if (KoPrvi == 1)
             {
@@ -451,7 +448,7 @@ class MainClass {
               Console.Write("X");
             }
           }
-          else if (Tabla[2, 0] == 0)
+          else if (Tabla[0, 2] == 0)
           {
             if (KoPrvi == 1)
             {
@@ -1183,7 +1180,7 @@ class MainClass {
 				}
 				Console.SetCursorPosition(0, 14);
 				Console.WriteLine("                           ");
-			} while(!Pobeda(Tabla) && !popunjenaTabla(Tabla) && !izlaz);
+			} while (!Pobeda(Tabla) && !popunjenaTabla(Tabla));
 			//ako je true, nema vise upisa i program ide dalje
 			Console.SetCursorPosition(0, 13);
 			//Ispis pobednika:
